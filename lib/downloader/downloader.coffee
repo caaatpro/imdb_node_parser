@@ -59,7 +59,7 @@ module.exports = class Downloader extends require('events').EventEmitter
               source : source
               target : target
           stream.pipe fs.createWriteStream target
-  
+
   unzip: (file) ->
     outputTarget = file.substring 0, file.lastIndexOf('.gz')
     input  = fs.createReadStream file
