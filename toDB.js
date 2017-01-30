@@ -15,6 +15,8 @@ if (!program.from) {
 }
 
 
+var iii = 0;
+var t = 0;
 
 var rl = new LineByLineReader(program.from);
 
@@ -24,11 +26,16 @@ rl.on('error', function (err) {
 
 rl.on('line', function (line) {
 	// pause emitting of lines...
-	rl.pause();
+	t++;
+	if (t === 10) {
+	   rl.pause();
+  }
+
 
   request.post('http://127.0.0.1:7000/movie').form(JSON.parse(line))
       .on('response', function(response) {
-        // console.log(response);
+        console.log(++iii);
+        t=0;
         rl.resume();
       })
       .on('error', function(err) {
@@ -37,5 +44,5 @@ rl.on('line', function (line) {
 });
 
 rl.on('end', function () {
-	console.log('End')
+	console.log('End');
 });
